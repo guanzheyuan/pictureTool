@@ -11,6 +11,12 @@
     <load-on-startup>1</load-on-startup>
     <async-supported>true</async-supported>
   </servlet>
+  <jsp-config>
+  	<jsp-property-group>
+  		<url-pattern>*.jsp</url-pattern>
+  		<trim-directive-whitespaces>true</trim-directive-whitespaces>
+  	</jsp-property-group>
+  </jsp-config>
   <servlet-mapping>
     <servlet-name>SpringMVC</servlet-name>
     <url-pattern>*.do</url-pattern>

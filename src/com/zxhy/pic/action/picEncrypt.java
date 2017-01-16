@@ -45,7 +45,7 @@ public class picEncrypt {
 			@SuppressWarnings("deprecation")
 			String outPath = pictureUtil.pressText(filePath,request.getRealPath("/upload"));
 		    pictureUtil.vaildCode = pictureUtil.getFileMD5(new File(outPath));
-			pictureUtil.downLoadFile(request, response, outPath);
+			pictureUtil.downLoadFile(request,response, outPath);
 		     modelAndView.addObject("msg","图片加密成功!");
 		}
 		modelAndView.setViewName("/picManager");

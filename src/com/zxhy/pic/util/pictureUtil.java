@@ -19,6 +19,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.net.URLEncoder;
@@ -28,6 +29,7 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.Map.Entry;
 import javax.imageio.ImageIO;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.disk.DiskFileItem;
@@ -53,10 +55,11 @@ public class pictureUtil{
 	
 	public static String vaildCode;
 	
+ 
 	/**
 	 * 输出浏览器下载
 	 */
-	public  static  void downLoadFile(HttpServletRequest request,HttpServletResponse response,String filePath){
+	public  static  String downLoadFile(HttpServletRequest request,HttpServletResponse response,String filePath){
 		 //将文件读入文件流
 		try {
 			InputStream inStream = new FileInputStream(filePath);
@@ -76,6 +79,7 @@ public class pictureUtil{
 			response.setContentType("application/x-download");//告知浏览器下载文件，而不是直接打开，浏览器默认为打开
 			response.addHeader("Content-Disposition" ,"attachment;filename=\"" +finalFileName+ "\"");//下载文件的名称
 			OutputStream os = response.getOutputStream();
+			//PrintWriter out = response.getWriter();
 			// 循环取出流中的数据
 	        byte[] b = new byte[1024];
 	        int len;
@@ -84,7 +88,7 @@ public class pictureUtil{
             }
             os.flush();
             os.close();
-            inStream.close();
+            response.flushBuffer();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {
@@ -92,6 +96,7 @@ public class pictureUtil{
 		}catch (IOException e) {
 			e.printStackTrace();
 		}
+		 return null;
 	}
 	/**
 	 * 图片水印
