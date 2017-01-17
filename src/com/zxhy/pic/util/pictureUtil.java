@@ -39,6 +39,9 @@ import com.sun.image.codec.jpeg.ImageFormatException;
 import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGImageDecoder;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
+
+import sun.awt.image.PNGImageDecoder;
+
 import java.util.Map;
 import java.util.List;
 /**
@@ -182,6 +185,28 @@ public class pictureUtil{
 				e.printStackTrace();
 			}  
 			return  shareFileName;
+	}
+	
+	/**
+	 * 复制照片
+	 * @param request
+	 */
+	@SuppressWarnings("deprecation")
+	public static String copyPhoto(MultipartFile multipartFile,HttpServletRequest request){
+		String fileName = multipartFile.getOriginalFilename();
+		String filePath = "";
+		if (!"".equals(fileName)) {
+			filePath = request.getRealPath("/upload")+"/"+System.currentTimeMillis()+fileName.substring(fileName.lastIndexOf("."), fileName.length());
+		}
+		File file= new File(filePath);
+		try {
+			multipartFile.transferTo(file);
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}  
+		return  filePath;
 	}
 	/**
 	 * 得到图片坐标（随机）

@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -33,17 +34,13 @@ public class picEncrypt {
 	 * @return
 	 */
 	@RequestMapping(value = "/doUpload",method=RequestMethod.POST)
-	public ModelAndView doUploadPicture(HttpServletRequest request,HttpServletResponse response){
+	public ModelAndView doUploadPicture(@RequestParam(value = "firstFile", required = false) MultipartFile multipartFile,HttpServletRequest request,HttpServletResponse response){
 		ModelAndView modelAndView = new ModelAndView();
-		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-		MultipartFile multipartFile = multipartRequest.getFile("firstFile");
 		if (null == multipartFile) {
 			modelAndView.addObject("msg","上传图片为空!");
 		}else{
-			File file = pictureUtil.transferTo(multipartFile);
-			String filePath = file== null ?"":file.getPath();
 			@SuppressWarnings("deprecation")
-			String outPath = pictureUtil.pressText(filePath,request.getRealPath("/upload"));
+			String outPath = pictureUtil.pressText(pictureUtil.copyPhoto(multipartFile, request),request.getRealPath("/upload"));
 		    pictureUtil.vaildCode = pictureUtil.getFileMD5(new File(outPath));
 			pictureUtil.downLoadFile(request,response, outPath);
 		     modelAndView.addObject("msg","图片加密成功!");
@@ -72,9 +69,7 @@ public class picEncrypt {
 			modelAndView.addObject("msg","上传图片为空!");
 			return modelAndView;
 		}
-		File picFile = pictureUtil.transferTo(picMultFile);
-		File waterFile = pictureUtil.transferTo(logoMultFile);
-		String outPath = pictureUtil.pressImage(picFile.getPath(), waterFile.getPath(),request.getRealPath("/upload"));
+		String outPath = pictureUtil.pressImage(pictureUtil.copyPhoto(picMultFile, request),pictureUtil.copyPhoto(logoMultFile, request),request.getRealPath("/upload"));
 		pictureUtil.downLoadFile(request, response, outPath);
 		 modelAndView.addObject("msg","增加水印成功!");
 		return modelAndView;

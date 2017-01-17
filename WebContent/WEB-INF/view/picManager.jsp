@@ -135,7 +135,7 @@ function onSubmit(){
 		$("#encryptForm").submit();
 	}else{
 		alert("请选择jpg格式的图片");
-	}
+	} 
 	
 }
 
@@ -157,17 +157,13 @@ function onSubmit1(){
 	logoFile = logoFile.substring(len,logoFile.length);
 	var len = picFile.lastIndexOf(".");
 	picFile = picFile.substring(len,picFile.length);
-	if(".jpg"!=logoFile){
-		if(".jpeg"!=logoFile){
+	if(".jpg"!=logoFile && ".jpeg"!=logoFile && ".png"!=logoFile){
+		alert("请选择.jpg、.jpeg、.png的图片");
+		return;
+	} 
+	if(".jpg"!=picFile && ".jpeg"!=picFile ){
 			alert("请选择jpg或者.jpeg的图片");
 			return;
-		}
-	}
-	if(".jpg"!=picFile){
-		if(".jpeg"!=picFile){
-			alert("请选择jpg或者.jpeg的图片");
-			return;
-		}
 	}
 	$("#waterForm").submit();
 }
@@ -261,11 +257,11 @@ function onSubmit3(){
 				    		<input name="win"  id="win2"  type="hidden">
 				 		<table width="50%" border="0" align="center"  style="border-collapse:collapse">
 				 				<tr>
-				 						<td align="center" style="display:none;" id="picTd2_1">
+				 						<td align="center"  id="picTd2_1">
 			 									<div class="showFileName2_1"></div>
 						    						<img id="showImg2_1" src="" width="150px" height="100px">
 			 							</td>
-			 							<td align="center"  style="display:none;" id="picTd2_2">
+			 							<td align="center"    id="picTd2_2">
 			 									<div class="showFileName2_2"></div>
 						    						<img id="showImg2_2" src="" width="150px" height="100px">
 			 							</td>
