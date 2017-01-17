@@ -19,7 +19,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.net.URLEncoder;
@@ -29,7 +28,6 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.Map.Entry;
 import javax.imageio.ImageIO;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.disk.DiskFileItem;
@@ -62,6 +60,7 @@ public class pictureUtil{
 	/**
 	 * 输出浏览器下载
 	 */
+	@SuppressWarnings("resource")
 	public  static  String downLoadFile(HttpServletRequest request,HttpServletResponse response,String filePath){
 		 //将文件读入文件流
 		try {
@@ -71,9 +70,9 @@ public class pictureUtil{
 			//判断浏览器代理并分别设置响应给浏览器的编码格式
 			String finalFileName = null;
 			filePath = filePath.substring(filePath.lastIndexOf("/")+1, filePath.length());
-			if(userAgent.equals("MSIE")||userAgent.equals("Trident")){//IE浏览器
+			if("MSIE".equals(userAgent)||"Trident".equals(userAgent)){//IE浏览器
                 finalFileName = URLEncoder.encode(filePath,"UTF8");
-            }else if(userAgent.equals("Mozilla")){//google,火狐浏览器
+            }else if("Mozilla".equals(userAgent)){//google,火狐浏览器
                 finalFileName = new String(filePath.getBytes(), "ISO8859-1");
             }else{
                 finalFileName = URLEncoder.encode(filePath,"UTF8");//其他浏览器

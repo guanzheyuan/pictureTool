@@ -67,7 +67,7 @@ $(function(){
 function showFileName(Id,showName){
 	$("#"+Id).on("change","input[type='file']",function(){
 	    var filePath=$(this).val();
-	    if(filePath.indexOf("jpg")!=-1||filePath.indexOf("jpeg")!=-1){
+	    if(filePath.indexOf("jpg")!=-1||filePath.indexOf("jpeg")!=-1||filePath.indexOf("png")!=-1){
 	        $(".fileerrorTip").html("").hide();
 	        var arr=filePath.split('\\');
 	        var fileName=arr[arr.length-1];
