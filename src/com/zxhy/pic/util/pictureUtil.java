@@ -10,8 +10,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.WritableRaster;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -37,9 +35,6 @@ import com.sun.image.codec.jpeg.ImageFormatException;
 import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGImageDecoder;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
-
-import sun.awt.image.PNGImageDecoder;
-
 import java.util.Map;
 import java.util.List;
 /**
@@ -81,7 +76,6 @@ public class pictureUtil{
 			response.setContentType("application/x-download");//告知浏览器下载文件，而不是直接打开，浏览器默认为打开
 			response.addHeader("Content-Disposition" ,"attachment;filename=\"" +finalFileName+ "\"");//下载文件的名称
 			OutputStream os = response.getOutputStream();
-			//PrintWriter out = response.getWriter();
 			// 循环取出流中的数据
 	        byte[] b = new byte[1024];
 	        int len;
@@ -134,7 +128,6 @@ public class pictureUtil{
 	            encoder.encode(bufferedimage);
 	            out.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return shareFileName;
@@ -143,7 +136,6 @@ public class pictureUtil{
 	 * 文字水印
 	 */
 	public static String pressText(String filePath,String outPath){
-	      //图片主路径
          InputStream is= null;
          BufferedImage buffImg = null;
          JPEGImageDecoder jpegDecoder = null;
@@ -389,7 +381,7 @@ public class pictureUtil{
                 height = (int) (sy * source.getHeight());  
             }  
         }  
-        if (type == BufferedImage.TYPE_CUSTOM) { // handmade  
+        if (type == BufferedImage.TYPE_CUSTOM) {
             ColorModel cm = source.getColorModel();  
             WritableRaster raster = cm.createCompatibleWritableRaster(width,height);  
             boolean alphaPremultiplied = cm.isAlphaPremultiplied();  
@@ -493,34 +485,4 @@ public class pictureUtil{
 	    		} 
 	    		return versions;
 	    }
-		/**
-		 * 复制照片到制定目录（单张、多张）
-		 * @param start 开始地址
-		 * @param end   结束地址
-		 * @return
-		 */
-		public static boolean CopyPhoto(String start,String end){
-			BufferedInputStream bis = null;//拷贝的地址
-			BufferedOutputStream bos = null;//目标地址
-			try {
-				bis = new BufferedInputStream(new FileInputStream(new File(start)));
-				bos = new BufferedOutputStream(new FileOutputStream(new File(end)));
-				int val;
-				while((val=bis.read())!=-1){
-					 bos.write(val);
-				}
-				return true;
-			} catch (Exception e) {
-				e.printStackTrace();
-			}finally{
-				try {
-					 bis.close();
-					 bos.flush();
-					 bos.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			return false;
-		}
 }
