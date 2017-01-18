@@ -45,7 +45,7 @@ public class picEncrypt {
 			pictureUtil.downLoadFile(request,response, outPath);
 		     modelAndView.addObject("msg","图片加密成功!");
 		}
-		modelAndView.setViewName("/picManager");
+		modelAndView.setViewName("/picManager"); 
 		return modelAndView;
 	}
 	
