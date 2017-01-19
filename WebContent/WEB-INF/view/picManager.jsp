@@ -157,8 +157,8 @@ function onSubmit1(){
 	logoFile = logoFile.substring(len,logoFile.length);
 	var len = picFile.lastIndexOf(".");
 	picFile = picFile.substring(len,picFile.length);
-	if(".jpg"!=logoFile && ".jpeg"!=logoFile && ".png"!=logoFile){
-		alert("请选择.jpg、.jpeg、.png的图片");
+	if(".jpg"!=logoFile && ".png"!=logoFile){
+		alert("请选择.jpg、.png的图片");
 		return;
 	} 
 	if(".jpg"!=picFile && ".jpeg"!=picFile ){

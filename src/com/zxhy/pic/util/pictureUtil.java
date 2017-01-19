@@ -48,7 +48,8 @@ public class pictureUtil{
 	private static final String PRESS_TEST=".....";
 	//输出文件类型
 	private static final String PICTRUE_FORMATE_JPG = ".jpg";
-	
+	//输出文件类型
+	private static final String PICTRUE_FORMATE_JPEG = ".jpeg";
 	public static String vaildCode;
 	
  
@@ -162,7 +163,7 @@ public class pictureUtil{
 			            //执行关闭
 			            g.dispose();  
 			            //输出参数地址
-			            shareFileName = outPath+"/"+System.currentTimeMillis() + PICTRUE_FORMATE_JPG; 
+			            shareFileName = outPath+"/"+System.currentTimeMillis() + PICTRUE_FORMATE_JPEG; 
 			            	FileOutputStream out = new FileOutputStream(shareFileName);
 			            //创键编码器，用于编码内存中的图象数据。            
 			           JPEGImageEncoder en = JPEGCodec.createJPEGEncoder(out);  
@@ -420,9 +421,9 @@ public class pictureUtil{
 	   */
 	  public static String getFileMD5(File file){
 		  //判断是否存在文件
-	    if (!file.isFile()){
-	      return null;
-	    }
+//	    if (!file.isFile()){
+//	      return null;
+//	    }
 	    //创建摘要算法对象
 	    MessageDigest digest = null;
 	    FileInputStream in=null;
